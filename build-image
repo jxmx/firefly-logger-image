@@ -11,7 +11,7 @@ function check_deps(){
 
 check_deps /usr/bin/xz
 
-apt install -y python3-git lsof p7zip-full jq
+apt install -y python3-git lsof p7zip-full jq python3-yaml
 
 ## Options
 function usage() { echo "Usage: $0 -v VERSION" 1>&2; exit 1; }
