@@ -41,7 +41,7 @@ apt update
 apt remove -y iptables exim4-base exim4-config exim4-daemon-light
 apt autoremove -y
 apt purge -y exim4-base exim4-config exim4-daemon-light
-apt install -y firefly-logger-appliance vim-nox
+apt install -y apache2 firefly-logger-appliance vim-nox
 
 # Create motd & issue
 unpack filesystem/etc /etc
