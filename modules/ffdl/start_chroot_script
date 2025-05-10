@@ -30,6 +30,12 @@ wget -O/tmp/packetwarriors-repo.deb \
 dpkg -i /tmp/packetwarriors-repo.deb
 rm -f /tmp/packetwarriors-repo.deb
 
+## Install AllStarLink Repo (for cockpit-wifimanager)
+wget -O/tmp/asl-apt-repos.deb12_all.deb \
+	 https://repo.allstarlink.org/public/asl-apt-repos.deb12_all.deb
+	dpkg -i /tmp/asl-apt-repos.deb12_all.deb
+	rm -f /tmp/asl-apt-repos.deb12_all.deb
+
 ## Do apt things
 apt update
 apt remove -y iptables exim4-base exim4-config exim4-daemon-light
