@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # asl3/start_chroot_script
-# Installs all of AllStarLink v3
+# Installs all of Firefly Logger
 # Written by Jason McCormick N8EI
 # GPL V3
 ########
@@ -24,11 +24,11 @@ unpack filesystem/usr/local/sbin/ /usr/local/sbin/ root
 /usr/local/sbin/minimize-kernels \
 	$(grep VERSION_CODENAME /etc/os-release | awk 'BEGIN {FS="="};{print $2}')
 
-## Install AllStarLink Repo
-wget -O/tmp/asl-apt-repos.deb12_all.deb \
-	 https://repo.allstarlink.org/public/asl-apt-repos.deb12_all.deb
-dpkg -i /tmp/asl-apt-repos.deb12_all.deb
-rm -f /tmp/asl-apt-repos.deb12_all.deb
+## Install Firefly Logger Repo
+wget -O/tmp/packetwarriors-repo.deb \
+	https://repo.packetwarriors.com/packetwarriors-repo.deb
+dpkg -i /tmp/packetwarriors-repo.deb
+rm -f /tmp/packetwarriors-repo.deb
 
 ## Do apt things
 apt update

@@ -62,7 +62,7 @@ popd
 
 echo "Compressing image... this takes a long time...."
 IMGFILE=$(ls ffdl/src/workspace/*.img)
-xz -T 0 -c ${IMGFILE} > ../allstar3-arm64-${VER}.img.xz
+xz -T 0 -c ${IMGFILE} > ../firefly-logger-arm64-${VER}.img.xz
 popd
 
 ls -l *.xz
