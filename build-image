@@ -1,0 +1,69 @@
+#!/bin/bash
+
+
+## System Checks
+function check_deps(){
+	if [ ! -x "$1" ]; then
+		echo "ERROR: Missing dependency ${1}" 1>&2
+		exit 1 
+	fi
+}
+
+check_deps /usr/bin/xz
+
+apt install -y python3-git lsof
+
+## Options
+function usage() { echo "Usage: $0 -v VERSION" 1>&2; exit 1; }
+
+while getopts "v:" opt; do
+	case $opt in
+		v) VER="$OPTARG" ;;
+		*) usage ;;
+	esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${VER}" ]; then
+	usage
+fi
+
+## Error out immediately on any problem
+set -e
+
+## Clone the CustomPiOS Builder
+git clone --depth 1 https://github.com/jxmx/CustomPiOS
+
+## Generate the image build system
+pushd CustomPiOS
+
+# Install the patches for CustomPiOS
+patch -p1 < ../aarch64_fixes.patch
+patch -p1 < ../mod_net_quirks.patch
+
+if [ -d ffdl ]; then
+	echo "ERROR: Image structure ffdl already exists" 1>&2
+	exit 1
+fi
+
+export USER=root 
+./src/make_custom_pi_os -v raspios_lite_arm64 -g ./ffdl
+cp -r ../modules/* ffdl/src/modules/
+perl -pe "s/\@\@VER\@\@/${VER}/g" ../config > ffdl/src/config
+
+## Spin the image
+pushd ffdl/src
+
+# Fix the image path - see https://github.com/guysoft/CustomPiOS/issues/243
+mv image image-raspberrypiarm64
+
+sudo ./build_dist
+popd
+
+echo "Compressing image... this takes a long time...."
+IMGFILE=$(ls ffdl/src/workspace/*.img)
+xz -T 0 -c ${IMGFILE} > ../allstar3-arm64-${VER}.img.xz
+popd
+
+ls -l *.xz
+
