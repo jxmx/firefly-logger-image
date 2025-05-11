@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# asl3/start_chroot_script
+# ffdl/start_chroot_script
 # Installs all of Firefly Logger
 # Written by Jason McCormick N8EI
 # GPL V3
@@ -53,7 +53,7 @@ echo "" > /etc/issue.net
 
 # Set Firstboot
 unpack filesystem/etc/systemd/system/ /etc/systemd/system/ root
-touch /asl3-first-boot-needed
+touch /ffdl-first-boot-needed
 systemctl enable systemd-time-wait-sync.service
 systemctl enable ffdl-firstboot
 rm /firefly-not-installed
