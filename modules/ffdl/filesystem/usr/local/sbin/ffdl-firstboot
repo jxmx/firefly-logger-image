@@ -1,4 +1,9 @@
 #!/usr/bin/bash
+#
+#
+if [ -e /boot/firstboot.sh] ; then
+	exit 0
+fi
 
 if [ -e /ffdl-first-boot-needed ]; then
 	rm /ffdl-first-boot-needed
@@ -25,4 +30,5 @@ if [ -e /ffdl-first-boot-needed ]; then
 
 	# Disable firstboot
 	systemctl disable ffdl-firstboot
+	exit 0
 fi

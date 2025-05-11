@@ -1,6 +1,6 @@
 [Unit]
 Description=Firefly Logger First Boot Setup
-Before=cockpit.socket
+After=mariadb.service
 
 [Service]
 Type=oneshot
