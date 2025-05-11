@@ -36,6 +36,9 @@ wget -O/tmp/asl-apt-repos.deb12_all.deb \
 	dpkg -i /tmp/asl-apt-repos.deb12_all.deb
 	rm -f /tmp/asl-apt-repos.deb12_all.deb
 
+## Prevent postinst on firefly-logger from running at dpkg time
+touch /firefly-not-installed
+
 ## Do apt things
 apt update
 apt remove -y iptables exim4-base exim4-config exim4-daemon-light
@@ -53,3 +56,4 @@ unpack filesystem/etc/systemd/system/ /etc/systemd/system/ root
 touch /asl3-first-boot-needed
 systemctl enable systemd-time-wait-sync.service
 systemctl enable ffdl-firstboot
+rm /firefly-not-installed

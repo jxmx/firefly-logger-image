@@ -17,6 +17,12 @@ if [ -e /ffdl-first-boot-needed ]; then
         -out /etc/cockpit/ws-certs.d/0-self-signed.cert -subj \
         "/CN=${THISHOST}.local"
 
+	# Setup FFDL
+	/usr/bin/firefly-logger-loaddb
+	/usr/bin/firefly-logger-takeover force-this
+	systemctl enable wsjt2ffdl
+	systemctl start wsjt2ffdl
+
 	# Disable firstboot
 	systemctl disable ffdl-firstboot
 fi
